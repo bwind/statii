@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  default:
+    build: .
+    env_file: .env
+    command: python -u worker.py
+    volumes:
+      - ./src/:/app/src
+  web:
+    build: .
+    env_file: .env
+    command: python -u web.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src/:/app/src
