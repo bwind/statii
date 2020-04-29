@@ -14,9 +14,11 @@ class CheckStatus:
     check: BaseCheck
     timestamp: datetime.datetime
     status: Status
+    id: str = None
 
 
 class CheckStatusSchema(Schema):
+    id = fields.Str(allow_none=True)
     check = fields.Nested(CheckSchema)
     timestamp = DateTimeField()
     status = fields.Nested(StatusSchema)

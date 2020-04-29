@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 import asyncio
+import datetime
 import sys
 
 from colored import attr, fg
 
 from db import connect
+from domain.check_status import CheckStatus
 from domain.status import StatusEnum
 from logger import logging
 from repositories.check import CheckRepository
+from repositories.last_check_status import LastCheckStatusRepository
 
 # import sentry_sdk
 
@@ -33,6 +36,11 @@ async def run_check(check):
         message += f" {status.message}"
     logging.info(
         f"{check.__class__.__name__} {check.description}: {COLORS[status.status]}{message}{COLOR_RESET}"  # noqa: E501
+    )
+    LastCheckStatusRepository().save(
+        CheckStatus(
+            check=check, timestamp=datetime.datetime.now(), status=status
+        )
     )
 
 

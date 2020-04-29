@@ -30,7 +30,7 @@ class Status:
 
 class StatusSchema(Schema):
     status = EnumField(StatusEnum)
-    message = fields.Str()
+    message = fields.Str(allow_none=True)
 
     @post_load
     def make_object(self, data, **kwargs):
