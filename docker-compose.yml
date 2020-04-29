@@ -1,5 +1,8 @@
 version: "2"
 
+volumes:
+  mongodb_data:
+
 services:
   default:
     build: .
@@ -15,3 +18,7 @@ services:
       - "5000:5000"
     volumes:
       - ./src/:/app/src
+  db:
+    image: mongo:4
+    volumes:
+      - mongodb_data:/data/db/

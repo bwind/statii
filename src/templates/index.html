@@ -1,0 +1,33 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="alert alert-success bg-success text-light border-0" role="alert">
+  All systems operational.
+</div>
+<div class="alert alert-warning bg-warning text-dark border-0" role="alert">
+  Some systems are experiencing degraded performance.
+</div>
+<div class="alert alert-danger bg-danger text-light border-0" role="alert">
+  Some systems are experiencing issues.
+</div>
+
+<div class="list-group col-xs-12">
+  <div
+    class="list-group-item d-flex w-100 justify-content-between align-items-center"
+  >
+    <h5>Platform</h5>
+    <small class="text-success font-weight-bold">Operational</small>
+  </div>
+  <div
+    class="list-group-item d-flex w-100 justify-content-between align-items-center"
+  >
+    <h5>Shopify App</h5>
+    <small class="text-danger font-weight-bold">Issues</small>
+  </div>
+  <div
+    class="list-group-item d-flex w-100 justify-content-between align-items-center"
+  >
+    <h5>Facebook Connector</h5>
+    <small class="text-warning font-weight-bold">Degraded performance</small>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,5 +1,7 @@
 FROM python:3.8
 
+RUN pip install -U pip
+
 RUN echo "alias l='ls -lahF --color=auto'" >> /root/.bashrc
 
 RUN echo "python -m pytest --disable-warnings -x" >> /root/.bash_history

@@ -1,14 +1,15 @@
 import logging
 
-import jinja2
 import sentry_sdk
 from flask import Flask
 
 from config import settings
+from db import connect
+from views.index import IndexView
+from views.statii import StatiiView
 
 FORMAT = "* %(asctime)s - %(levelname)-8s * %(message)s"
 logging.basicConfig(level=logging.INFO, format=FORMAT)
-logging.getLogger("pika").setLevel(logging.WARNING)
 
 
 if settings.SENTRY_DSN:
@@ -17,7 +18,7 @@ if settings.SENTRY_DSN:
 
 def create_app():
     app = Flask(__name__)
-    app.jinja_loader = jinja2.ChoiceLoader(
-        [app.jinja_loader, jinja2.FileSystemLoader(["web/templates"])]
-    )
+    app.add_url_rule("/", view_func=IndexView.as_view("index"))
+    app.add_url_rule("/statii", view_func=StatiiView.as_view("statii"))
+    app.db = connect()
     return app

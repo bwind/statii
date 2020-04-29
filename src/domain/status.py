@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from marshmallow import Schema, fields, post_load
+from marshmallow_enum import EnumField
+
 
 class StatusEnum(Enum):
     UNKNOWN = "UNKNOWN"
@@ -23,3 +26,12 @@ class Status:
         if self.message is not None:
             r += f" ({self.message})"
         return r
+
+
+class StatusSchema(Schema):
+    status = EnumField(StatusEnum)
+    message = fields.Str()
+
+    @post_load
+    def make_object(self, data, **kwargs):
+        return Status(**data)
